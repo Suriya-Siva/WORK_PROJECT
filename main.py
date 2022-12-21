@@ -15,10 +15,16 @@ def ciscotest():
 
     page = requests.get(URL, headers=headers)
     soup = BeautifulSoup(page.content, 'html.parser')
-    version= soup.find(id="pointer fileDescOuter").get_text()
+    version_info = soup.find_all('div', class_='row single-image-container')
+    print(len(version_info))
+    for i in version_info:
+        print((soup.find('span', {'class':'pointer fileDescOuter'})).text)
+        
+
+
     
 
     # price
-    print(version.strip())
+    
     
 ciscotest()
