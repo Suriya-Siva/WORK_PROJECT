@@ -39,3 +39,33 @@ mydata.drop('#', inplace=True, axis=1)
 mydata.to_csv('covid_data.csv', index=False)
 # Try to read csv
 mydata2 = pd.read_csv('covid_data.csv')
+
+
+
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+
+
+
+URL ="https://docs.fortinet.com/document/fortigate/7.0.9/fortios-release-notes/553516/change-log"
+https://docs.fortinet.com/product/fortigate/7.0
+
+
+page = requests.get(URL)
+soup = BeautifulSoup(page.text,'lxml')
+soup
+table1 = soup.find('thead')
+table1
+
+headers = []
+for i in table1.find_all('th'):
+    title = i.text
+    headers.append(title)
+         
+
+print (headers)
+    
+
+   

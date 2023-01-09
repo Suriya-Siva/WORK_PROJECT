@@ -2,27 +2,55 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import re
 
 
 
 
-URL ="https://docs.fortinet.com/document/fortigate/7.0.9/fortios-release-notes/553516/change-log"
-
+URL ="https://docs.fortinet.com/product/fortigate/7.0"
+URL2='https://docs.fortinet.com'
 
 
 page = requests.get(URL)
 soup = BeautifulSoup(page.text,'lxml')
 soup
-table1 = soup.find('thead')
-table1
 
-headers = []
-for i in table1.find_all('th'):
-    title = i.text
-    headers.append(title)
-         
+headers=[]
+subpage=[]
+## getting all links from webpage
+for z in soup.findAll('a',{'class':"version-item-external"}):
+    dir=z.get('href')
+    
+## searching only for release notes
+    if re.search('fortios-release-notes$',dir):
+      headers.append(URL2+dir)
 
-print (headers)
+
+for i in headers:
+  page2=requests.get(i)
+  soup2=BeautifulSoup(page2.text,'lxml')
+
+# ## getting all links from release notes page
+  for a in soup2.findAll('a',{'class':"toc"}):
+
+## wanting only change log page   
+    dir2=a.get('href')
+    if (re.search('change-log$',dir2)) and (URL2+dir2 not in subpage) :
+      subpage.append(URL2+dir2)
+print(subpage)
+
+#third part of the code to compare the dates
+for x in subpage:
+  
+
+
+    
+
+            
+        
+
+
+
     
 
    
