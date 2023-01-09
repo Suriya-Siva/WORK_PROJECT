@@ -15,18 +15,19 @@ page = requests.get(URL)
 soup = BeautifulSoup(page.text,'lxml')
 soup
 
-headers=[]
+mainpage=[]
 subpage=[]
+
 ## getting all links from webpage
 for z in soup.findAll('a',{'class':"version-item-external"}):
     dir=z.get('href')
     
 ## searching only for release notes
     if re.search('fortios-release-notes$',dir):
-      headers.append(URL2+dir)
+      mainpage.append(URL2+dir)
 
 
-for i in headers:
+for i in mainpage:
   page2=requests.get(i)
   soup2=BeautifulSoup(page2.text,'lxml')
 
@@ -41,7 +42,11 @@ print(subpage)
 
 #third part of the code to compare the dates
 for x in subpage:
+  page3=requests.get(x)
+  soup3=BeautifulSoup(page3.text,'lxml')
+  date=soup3.find('td',{'class':'TableStyle-FortinetTable-BodyE-Column1-Body1'})
   
+  print(date)
 
 
     
