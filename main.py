@@ -3,8 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import re
-
-
+from datetime import datetime
+import openpyxl 
 
 
 URL ="https://docs.fortinet.com/product/fortigate/7.0"
@@ -18,6 +18,9 @@ soup
 mainpage=[]
 subpage=[]
 dates=[]
+dict={}
+final_date=["1000-10-1"]
+
 
 ## getting all links from webpage
 for z in soup.findAll('a',{'class':"version-item-external"}):
@@ -39,22 +42,56 @@ for i in mainpage:
     dir2=a.get('href')
     if (re.search('change-log$',dir2)) and (URL2+dir2 not in subpage) :
       subpage.append(URL2+dir2)
-print(subpage)
 
-#third part of the code to compare the dates
+#part of the code to get the dates
 for x in subpage:
   page3=requests.get(x)
   soup3=BeautifulSoup(page3.text,'lxml')
-  date=soup3.find('td',{'class':'TableStyle-FortinetTable-BodyE-Column1-Body1'})
-  dates.append(date)
-  print(date)
-dict={}
+  for date in soup3.find('td',{'class':'TableStyle-FortinetTable-BodyE-Column1-Body1'}):
+    if date.text != '\n':
+      dates.append(date.text)
+
+  
+# creating a new dictionary key value pair with the key being the link and the value being the date
 for key1 in subpage:
   for key2 in dates:
     dict[key1]=key2
     dates.remove(key2)
+    break
 
-    
+
+
+# finding the latest date the latest date
+for values in dict.values():
+
+  try:
+    from_value = datetime.strptime(values, '%Y-%m-%d')
+    latest_date= datetime.strptime(final_date[0],'%Y-%m-%d')
+   
+    if from_value > latest_date :
+      final_date.clear()
+      final_date.append(values)
+  except ValueError as message:
+    print('A value error is raised because :', message)
+
+#after getting the value we append into the file 
+final_date=final_date[0]
+final_link = list(filter(lambda x: dict[x] == final_date, dict))[0]
+
+page4=requests.get(final_link)
+soup4=BeautifulSoup(page4.text,'lxml')
+
+latest_version=soup4.find('span',{'class':'current-version'}).text
+
+
+
+
+
+  
+
+
+
+         
 
             
         

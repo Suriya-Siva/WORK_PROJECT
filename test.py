@@ -68,4 +68,10 @@ for i in table1.find_all('th'):
 print (headers)
     
 
-   
+   for i in range(len(fmt_dates)): 
+    print(fmt_dates[i])
+    for j in range(i + 1, len(fmt_dates)):
+      print(fmt_dates[j])
+      if fmt_dates[i] > fmt_dates[j] and fmt_dates[i] not in latest_date:
+        latest_date.clear()
+        latest_date.append(fmt_dates[i])
