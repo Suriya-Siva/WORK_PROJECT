@@ -9,7 +9,7 @@ import openpyxl
 
 URL ="https://docs.fortinet.com/product/fortigate/7.0"
 URL2='https://docs.fortinet.com'
-
+path = "C:/Users/P1350392/OneDrive - NCS Pte Ltd/work proj files/SSOE2 Software Inventory - Network (Tab 9).xlsx"
 
 page = requests.get(URL)
 soup = BeautifulSoup(page.text,'lxml')
@@ -85,12 +85,21 @@ latest_version=soup4.find('span',{'class':'current-version'}).text
 
 
 
-
-
-  
-
-
-
+wb_obj = openpyxl.load_workbook(path) 
+sheet= wb_obj.active 
+#slotting in the latest market verion avail
+cell = sheet['L10']
+cell.value= latest_version
+#slotting in market version latest release date
+cell2 =sheet['M10']
+cell2.value=final_date
+#latest release version support
+cell2a=sheet['N10']
+cell2a.value=final_date
+#slotting in the link into the file
+cell3=sheet['F10']
+cell3.value=final_link
+wb_obj.save(filename="sample.xlsx")
          
 
             
