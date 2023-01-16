@@ -17,6 +17,7 @@ soup
 
 mainpage=[]
 subpage=[]
+dates=[]
 
 ## getting all links from webpage
 for z in soup.findAll('a',{'class':"version-item-external"}):
@@ -45,9 +46,13 @@ for x in subpage:
   page3=requests.get(x)
   soup3=BeautifulSoup(page3.text,'lxml')
   date=soup3.find('td',{'class':'TableStyle-FortinetTable-BodyE-Column1-Body1'})
-  
+  dates.append(date)
   print(date)
-
+dict={}
+for key1 in subpage:
+  for key2 in dates:
+    dict[key1]=key2
+    dates.remove(key2)
 
     
 
