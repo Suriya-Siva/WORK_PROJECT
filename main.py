@@ -99,6 +99,14 @@ cell2a.value=final_date
 #slotting in the link into the file
 cell3=sheet['F10']
 cell3.value=final_link
+
+#updating remarks 
+cellremarks=sheet['Y10']
+today = datetime.today()
+d2 = today.strftime("%Y-%m-%d")
+current_time = datetime.now()
+fmt_current_time=current_time.strftime("%H:%M:%S")
+cellremarks.value=d2+" "+ fmt_current_time + " (bot) : Updated by bot at this time"
 wb_obj.save(filename="sample.xlsx")
          
 
