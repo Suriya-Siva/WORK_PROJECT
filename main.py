@@ -229,7 +229,27 @@ elif options==3:
   fortimanager(latest_version,final_date,final_link)
 
 elif options == 4 :
-  print("run everything")
+  URL="https://docs.fortinet.com/product/fortigate/7.0"
+  data =get_data(URL,'fortios-release-notes$')
+  latest_version=data[0]
+  final_date=data[1]
+  final_link=data[2]
+  fortigate(latest_version,final_date,final_link)
+
+  URL2="https://docs.fortinet.com/product/fortianalyzer/7.0"
+  data2=get_data(URL2,'release-notes$')
+  latest_version2=data2[0]
+  final_date2=data2[1]
+  final_link2=data2[2]
+  fortianalyzer(latest_version2,final_date2,final_link2)
+
+  URL1="https://docs.fortinet.com/product/fortimanager/7.0"
+  data3=get_data(URL1,'release-notes$')
+  latest_version3=data3[0]
+  final_date3=data3[1]
+  final_link3=data3[2]
+  fortimanager(latest_version3,final_date3,final_link3)
+  
 
 else:
   print('option is not in the list')    
