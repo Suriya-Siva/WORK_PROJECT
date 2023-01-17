@@ -9,7 +9,8 @@ import openpyxl
 
 URL ="https://docs.fortinet.com/product/fortigate/7.0"
 URL2='https://docs.fortinet.com'
-path = "C:/Users/P1350392/OneDrive - NCS Pte Ltd/work proj files/SSOE2 Software Inventory - Network (Tab 9).xlsx"
+path= input("Please give the full directory path of the (SSOE2 Software Inventory - Network (Tab 9).xlsx) file : ")
+
 
 page = requests.get(URL)
 soup = BeautifulSoup(page.text,'lxml')
