@@ -87,8 +87,12 @@ soup4=BeautifulSoup(page4.text,'lxml')
 latest_version=soup4.find('span',{'class':'current-version'}).text
 
 
+try  : 
+  wb_obj = openpyxl.load_workbook(path) 
+except ValueError as message:
+  print('A value error is raised because :', message)
 
-wb_obj = openpyxl.load_workbook(path) 
+
 sheet= wb_obj.active 
 #slotting in the latest market verion avail
 cell = sheet['L10']
