@@ -9,6 +9,8 @@ import openpyxl
 
 URL ="https://docs.fortinet.com/product/fortigate/7.0"
 URL2='https://docs.fortinet.com'
+
+
 path= input("Please give the full directory path of the (SSOE2 Software Inventory - Network (Tab 9).xlsx) file : ")
 
 
