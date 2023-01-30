@@ -8,7 +8,7 @@ import openpyxl
 
 
 
-URL2='https://docs.fortinet.com'
+URLperm='https://docs.fortinet.com'
 
 print("1. Fortigate Firewall 1101E")
 print("2. Fortinet/FortiAnalyzer-2000E")
@@ -40,7 +40,7 @@ def get_data(URL,integral):
       
   ## searching only for release notes
       if re.search(integral,dir):
-        mainpage.append(URL2+dir)
+        mainpage.append(URLperm+dir)
 
 
   for i in mainpage:
@@ -52,8 +52,8 @@ def get_data(URL,integral):
 
   ## wanting only change log page   
       dir2=a.get('href')
-      if (re.search('change-log$',dir2)) and (URL2+dir2 not in subpage) :
-        subpage.append(URL2+dir2)
+      if (re.search('change-log$',dir2)) and (URLperm+dir2 not in subpage) :
+        subpage.append(URLperm+dir2)
 
   #part of the code to get the dates
   for x in subpage:
@@ -85,7 +85,9 @@ def get_data(URL,integral):
       print('A value error is raised because :', message)
 
   #after getting the value we return the data to append later
+
   final_date=final_date[0]
+  print(final_date)
   final_link = list(filter(lambda x: dict[x] == final_date, dict))[0]
 
   page4=requests.get(final_link)
@@ -94,9 +96,9 @@ def get_data(URL,integral):
   latest_version=soup4.find('span',{'class':'current-version'}).text
 
   return latest_version,final_date,final_link
-
+  
 #######################################################################################################
-############## functionm for fortigate
+############## function for fortigate
 def fortigate(latest_version,final_date,final_link):
   try  : 
     wb_obj = openpyxl.load_workbook(path) 
@@ -123,7 +125,7 @@ def fortigate(latest_version,final_date,final_link):
     current_time = datetime.now()
     fmt_current_time=current_time.strftime("%H:%M:%S")
     cellremarks.value=d2+" "+ fmt_current_time + " (bot) : Updated by bot at this time"
-    wb_obj.save(filename="sample.xlsx")
+    wb_obj.save(filename="C:\\Users\\P1350392\\OneDrive - NCS Pte Ltd\\work proj files\\SSOE2 Software Inventory - Network (Tab 9) - Copy.xlsx")
     print('file has been updated')
   except ValueError as message:
     print('A value error is raised because :', message)   
@@ -159,7 +161,7 @@ def fortianalyzer(latest_version,final_date,final_link):
     current_time = datetime.now()
     fmt_current_time=current_time.strftime("%H:%M:%S")
     cellremarks.value=d2+" "+ fmt_current_time + " (bot) : Updated by bot at this time"
-    wb_obj.save(filename="sample.xlsx")
+    wb_obj.save(filename="C:\\Users\P1350392\\OneDrive - NCS Pte Ltd\\work proj files\\SSOE2 Software Inventory - Network (Tab 9) - Copy.xlsx")
     print('file has been updated')
   except ValueError as message:
     print('A value error is raised because :', message)   
@@ -167,7 +169,7 @@ def fortianalyzer(latest_version,final_date,final_link):
 
 #################################################################################################################
 ########## Function for Fortimanager
-def fortimanager():
+def fortimanager(latest_version,final_date,final_link):
   try  : 
     wb_obj = openpyxl.load_workbook(path) 
   except ValueError as message:
@@ -193,7 +195,7 @@ def fortimanager():
     current_time = datetime.now()
     fmt_current_time=current_time.strftime("%H:%M:%S")
     cellremarks.value=d2+" "+ fmt_current_time + " (bot) : Updated by bot at this time"
-    wb_obj.save(filename="sample.xlsx")
+    wb_obj.save(filename="C:\\Users\P1350392\\OneDrive - NCS Pte Ltd\\work proj files\\SSOE2 Software Inventory - Network (Tab 9) - Copy.xlsx")
     print('file has been updated')
   except ValueError as message:
     print('A value error is raised because :', message)   
@@ -230,25 +232,25 @@ elif options==3:
 
 elif options == 4 :
   dict2={"https://docs.fortinet.com/product/fortigate/7.0":'fortios-release-notes$',"https://docs.fortinet.com/product/fortianalyzer/7.0":'release-notes$',"https://docs.fortinet.com/product/fortimanager/7.0":'release-notes$'}
-  #URL="https://docs.fortinet.com/product/fortigate/7.0"
-  #data =get_data(URL,'fortios-release-notes$')
-  #latest_version=data[0]
-  #final_date=data[1]
-  #final_link=data[2]
+  URL="https://docs.fortinet.com/product/fortigate/7.0"
+  data =get_data(URL,'fortios-release-notes$')
+  latest_version=data[0]
+  final_date=data[1]
+  final_link=data[2]
   fortigate(latest_version,final_date,final_link)
 
-  #URL2="https://docs.fortinet.com/product/fortianalyzer/7.0"
-  #data2=get_data(URL2,'release-notes$')
-  #latest_version2=data2[0]
-  #final_date2=data2[1]
-  #final_link2=data2[2]
+  URL2="https://docs.fortinet.com/product/fortianalyzer/7.0"
+  data2=get_data(URL2,'release-notes$')
+  latest_version2=data2[0]
+  final_date2=data2[1]
+  final_link2=data2[2]
   fortianalyzer(latest_version2,final_date2,final_link2)
 
-  #URL1="https://docs.fortinet.com/product/fortimanager/7.0"
-  #data3=get_data(URL1,'release-notes$')
-  #latest_version3=data3[0]
-  #final_date3=data3[1]
-  #final_link3=data3[2]
+  URL1="https://docs.fortinet.com/product/fortimanager/7.0"
+  data3=get_data(URL1,'release-notes$')
+  latest_version3=data3[0]
+  final_date3=data3[1]
+  final_link3=data3[2]
   fortimanager(latest_version3,final_date3,final_link3)
   
 
