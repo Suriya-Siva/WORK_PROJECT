@@ -195,7 +195,7 @@ def fortimanager(latest_version,final_date,final_link):
     current_time = datetime.now()
     fmt_current_time=current_time.strftime("%H:%M:%S")
     cellremarks.value=d2+" "+ fmt_current_time + " (bot) : Updated by bot at this time"
-    wb_obj.save(filename="C:\\Users\P1350392\\OneDrive - NCS Pte Ltd\\work proj files\\SSOE2 Software Inventory - Network (Tab 9) - Copy.xlsx")
+    wb_obj.save(filename="C:\\Users\P1350392\\OneDrive - NCS Pte Ltd\\work proj files\\SSOE2 Software Inventory - Network (Tab 9) - Copy.xlsx`  ")
     print('file has been updated')
   except ValueError as message:
     print('A value error is raised because :', message)   
